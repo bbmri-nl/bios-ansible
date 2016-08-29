@@ -1,0 +1,22 @@
+---
+- hosts: all
+#  remote_user: root
+#  become_user: root
+#  become: true
+  roles:
+  - role: ansible-miniconda-role
+    miniconda_env:
+      name: bios
+      channels:
+      - r
+      - bioconda
+      dependencies:
+        - python=3
+        - numpy=1.9
+        - scipy=0.14.0
+        - matplotlib=1.4.0
+        - star
+#  - role: references
+#  - role: biopet
+  vars:
+    reference_dir: /usr/local/biopet/references
