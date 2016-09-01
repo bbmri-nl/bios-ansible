@@ -1,26 +1,68 @@
 ---
 - hosts: all
-#  remote_user: root
-#  become_user: root
-#  become: true
-  roles:
-  - role: ansible-miniconda-role
-    miniconda_env:
-      name: bios
-      channels:
-      - r
-      - bioconda
-      dependencies:
-        - python=3
-        - numpy=1.9
-        - scipy=0.14.0
-        - matplotlib=1.4.0
-        - star
-        - bedtools=2.17.0
-        - samtools=1.1
-        - sickle-trim
-        - cutadapt
-#  - role: references
-#  - role: biopet
+#  roles:
+#  - role: ansible-miniconda-role
+#    miniconda_env:
+#      name: bios
+#      channels:
+#      - r
+#      - bioconda
+#      dependencies:
+#        - python=2
+#        - numpy=1.9
+#        - scipy=0.14.0
+#        - matplotlib=1.4.0
+#        - star
+#        - bedtools=2.17.0
+#        - samtools=1.1
+#        - sickle-trim
+#        - cutadapt
+#        - htseq=0.6.1
+#        - java-jdk=8.0.92
+#        - fastqc=0.11.5
+#        - R
+#        - seqtk
+#        - ucsc-wigtobigwig
+#        - igvtools
   vars:
-    reference_dir: /usr/local/biopet/references
+    extra_path: "{{ ansible_env.HOME}}/miniconda3/envs/bios/bin"
+    biopet_dir: "{{ ansible_env.HOME}}/biopet"
+    reference_dir: "{{ ansible_env.HOME}}/biopet/bios-reference"
+
+  tasks:
+  - name: add {{extra_path}} to path
+    lineinfile: dest=~/.profile state=present line="export PATH={{extra_path}}:$PATH"
+
+  - name: Create user bin dir
+    file: path=~/bin state=directory
+
+  - name: Create biopet dir
+    file: path={{ biopet_dir }} state=directory
+
+  - name: Download biopet jar
+    get_url:
+      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-023e3460.jar"
+      dest="{{ biopet_dir }}/biopet-bios.jar"
+    register: biopet_jar
+
+  - name: Add alias for biopet
+    lineinfile: dest=".profile" state=present line="alias biopet='java -Xmx1G -jar ~/biopet/biopet-bios.jar $*'"
+
+  - name: Create Reference dir
+    file: path={{ reference_dir }} state=directory
+
+  - name: Download reference set
+    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference-empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz"
+
+  - name: extract reference set
+    command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
+
+  - name: Create config from template
+    template: src=templates/biopet_config.yml.j2 dest={{ biopet_dir }}/biopet-bios-config.yml mode=644
+
+  - name: Add alias for biopet
+    lineinfile: dest=".profile" state=present line="export BIOPET_CONFIG={{ biopet_dir }}/biopet-bios-config.yml"
+
+  - name: Add alias for biopet
+    lineinfile: dest=".profile" state=present line="alias bios-pipeline='java -Xmx1G -jar ~/biopet/biopet-bios.jar pipeline gentrap $*'"
+
