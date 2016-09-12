@@ -1,0 +1,3 @@
+[targets]
+
+ansible.sombrerogalaxy-nbic.vm.surfsara.nl ansible_host=145.100.59.111 ansible_user=bios
