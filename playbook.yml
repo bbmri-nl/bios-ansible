@@ -2,6 +2,7 @@
 - hosts: all
   roles:
   - role: ansible-miniconda-role
+    miniconda_version: "3.16.0"
     miniconda_env:
       name: bios
       channels:
@@ -19,7 +20,7 @@
         - cutadapt
         - htseq=0.6.1
         - java-jdk=8.0.92
-        - fastqc=0.11.5
+        - fastqc=0.11.2
         - R
         - seqtk
         - ucsc-wigtobigwig
@@ -52,7 +53,7 @@
     file: path={{ reference_dir }} state=directory
 
   - name: Download reference set
-    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference.empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz"
+    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference-empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz" timeout=300
 
   - name: extract reference set
     command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
