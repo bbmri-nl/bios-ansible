@@ -57,6 +57,10 @@
   - name: extract reference set
     command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
 
+  - name: IGVtools path
+    shell: readlink -f `which ~/miniconda3/envs/bios/bin/igvtools`
+    register: igvtools_path
+
   - name: Create config from template
     template: src=templates/biopet_config.yml.j2 dest={{ biopet_dir }}/biopet-bios-config.yml mode=644
 
