@@ -1,6 +1,7 @@
 ---
 - hosts: all
   roles:
+  #gcc, libc need to be installed with sudo, so now installed manually.
   - role: ansible-miniconda-role
     miniconda_version: "3.16.0"
     miniconda_env:
