@@ -24,6 +24,7 @@
         - fastqc=0.11.2
         - R
         - seqtk
+        # ucsc-wigtobigwig receipe is not working. We miss some libs there.
         - ucsc-wigtobigwig
         - igvtools
   vars:
@@ -34,6 +35,7 @@
   tasks:
   - name: add {{extra_path}} to path
     lineinfile: dest=~/.profile state=present line="export PATH={{extra_path}}:$PATH"
+    #TODO: we should export lib path, LD.
 
   - name: Create user bin dir
     file: path=~/bin state=directory
@@ -59,6 +61,7 @@
   - name: extract reference set
     command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
 
+  # Hack to get jar file.
   - name: IGVtools path
     shell: readlink -f `which ~/miniconda3/envs/bios/bin/igvtools`
     register: igvtools_path
