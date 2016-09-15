@@ -1,8 +1,13 @@
-Here the bios pipeline will be installed on a ubuntu VM together with conda
+Instructions on auto-deploying BBMRI BIOS pipeline using ansible, conda and biopet framework.
+==============
 
-To run this playbook ansible 2.1 or higher should be installed on the computer that runs this. The remote computer does not require ansible.
+Prerequisite
+=====
+* On the managing computer, Ansible 2.1 or higher is required to run the playbook. 
+* On the managed computer/VM, Ubuntu (tested on 14.04) with SSH and a user account (sudo is not necessary) is required.
 
-### Vagrant
+Test with Vagrant
+=====
 
 To run this playbook within vagrant the following requirements are needed:
 - Anisble installed
@@ -19,19 +24,20 @@ If this is the first time provision with ansible will start automaticly. To manu
 vagrant provision
 ```
 
+Deploy pipeline and all its dependency on a remote server/VM
+=====
 
-### Remote machine
+In the [invertory.yml] file the nodes where to install this playbook on are listed. Here you can also selected an account name to use on the remote machine.
 
-To run this playbook on a remote machine the following requirements are needed:
-- Ansible installed on local machine
-- Ubuntu installed on remote machine
-- Ssh deamon is enabled on remote machine
-- Optional: Account need to be accesable with a ssh key (is not you need to enable an option in ansble that he ask for a password)
-
-In the [invertory.yml] file the nodes where to install this playbook on are listed. Here you can also selected an account name to use on te remote machine.
-
-To execute the playbook run the following command:
+To execute the playbook run the following command on the managing computer:
 ```
 ansible-playbook -i invertory.yml playbook.yml
 ```
+
+Run pipeline with tested dataset
+=====
+
+
+
+
 
