@@ -11,11 +11,14 @@ species: H.sapiens
 reference_name: hg19_gonl_masked
 igvtools:
   igvtools_jar: "{{ igvtools_path.stdout }}.jar"
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/igvtools/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/igvtools/lib"
 star:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/star/bin:$PATH"
   - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/star/lib"
 fastqc:
+  exe: "{{ fastqc_path.stdout }}"
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/bin:$PATH"
   - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/lib"
