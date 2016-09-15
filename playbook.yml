@@ -31,7 +31,7 @@
         pkgs: '-c bioconda java-jdk=8.0.92 seqtk sickle-trim cutadapt'
       - name: wigtobigwig
         pkgs: '-c bioconda ucsc-wigtobigwig' # ucsc-wigtobigwig receipe is not working. We miss some libs there.
-      - name: fastqc=0.11.2
+      - name: fastqc
         pkgs: '-b bioconda fastqc=0.11.2'
       - name: htseq
         pkgs: '-c bioconda python=2.7 htseq=0.6.1p1'
