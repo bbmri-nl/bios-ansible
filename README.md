@@ -63,4 +63,7 @@ Running the pipeline with:
 bios-pipeline -config <samples.yml> -cv output_dir=<output_dir> -run
 ```
 
-
+Running multiple jobs in parallel:
+```
+bios-pipeline -config <samples.yml> -cv output_dir=<output_dir> -maxConcurrentRun 10  -jobRunner ParallelShell -run
+```
