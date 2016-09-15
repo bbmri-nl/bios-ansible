@@ -37,7 +37,30 @@ ansible-playbook -i invertory.yml playbook.yml
 Run pipeline with tested dataset
 =====
 
+Define samples in samples.yml:
+``` yaml
+samples:
+  sample1:
+    libraries:
+      lib1:
+        R1: <Path to R1 fq>
+        R2: <Path to R2 fq>
+  sample2:
+    libraries:
+      lib1:
+        R1: <Path to R1 fq>
+        R2: <Path to R2 fq>
 
+```
 
+Running a dry run of the pipeline:
+```
+bios-pipeline -config <samples.yml> -cv output_dir=<output_dir>
+```
+
+Running the pipeline with:
+```
+bios-pipeline -config <samples.yml> -cv output_dir=<output_dir> -run
+```
 
 
