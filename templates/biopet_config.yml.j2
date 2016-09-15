@@ -9,5 +9,41 @@ references:
         genomeDir: "{{ reference_dir }}/STARindex"
 species: H.sapiens
 reference_name: hg19_gonl_masked
-igvtools_jar: "{{ igvtools_path.stdout }}.jar"
-
+igvtools:
+  igvtools_jar: "{{ igvtools_path.stdout }}.jar"
+star:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/star/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/star/lib"
+fastqc:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/lib"
+htseqcount:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/htseq/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/htseq/lib"
+seqtkseq:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib"
+cutadapt:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib"
+sickle:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib"
+samtoolsview:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/lib"
+samtoolsflagstat:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/lib"
+wigtobigwig:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/wigtobigwig/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/wigtobigwig/lib"
