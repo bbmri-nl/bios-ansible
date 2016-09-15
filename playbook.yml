@@ -2,36 +2,45 @@
 - hosts: all
   roles:
   #gcc, libc need to be installed with sudo, so now installed manually.
-  - role: ansible-miniconda-role
-    miniconda_version: "3.16.0"
-    miniconda_env:
-      name: bios
-      channels:
-      - r
-      - bioconda
-      dependencies:
-        - python=2
-        - numpy=1.9
-        - scipy=0.14.0
-        - matplotlib=1.4.0
-        - libpng=1.6.22-0
-        - star
-        - bedtools=2.17.0
-        - samtools=1.1
-        - sickle-trim
-        - cutadapt
-        - htseq=0.6.1p1
-        - java-jdk=8.0.92
-        - fastqc=0.11.2
-        - R
-        - seqtk
+#  - role: ansible-miniconda-role
+#    miniconda_version: "3.16.0"
+#    miniconda_env:
+#      name: bios
+#      channels:
+#      - r
+#      - bioconda
+#      dependencies:
+#        - python=2
+#        - numpy=1.9
+#        - scipy=0.14.0
+#        - matplotlib=1.4.0
+#        - libpng=1.6.22-0
+  - role: ansible-miniconda
+    miniconda_environments:
+      - name: bios
+        pkgs: '-c bioconda -c r R java-jdk=8.0.92'
+      - name: igvtools
+        pkgs: '-c bioconda java-jdk=8.0.92 igvtools'
+      - name: samtools
+        pkgs: '-c bioconda samtools=1.1'
+      - name: star
+        pkgs: '-c bioconda star'
+      - name: bedtools
+        pkgs: '-c bioconda bedtools=2.17.0'
+      - name: qccommand
+        pkgs: '-c bioconda java-jdk=8.0.92 seqtk sickle-trim cutadapt'
+      - name: wigtobigwig
         # ucsc-wigtobigwig receipe is not working. We miss some libs there.
-        - ucsc-wigtobigwig
-        - igvtools
+        pkgs: `-c bioconda ucsc-wigtobigwig`
+      - name: fastqc=0.11.2
+        pkgs: '-b bioconda fastqc=0.11.2'
+      - name: htseq
+        pkgs: '-c bioconda python=2.7 htseq=0.6.1p1'
+
   vars:
-    extra_path: "{{ ansible_env.HOME}}/miniconda3/envs/bios/bin"
-    biopet_dir: "{{ ansible_env.HOME}}/biopet"
-    reference_dir: "/data/references/bios"
+    extra_path: "{{ ansible_env.HOME }}/miniconda/envs/bios/bin"
+    biopet_dir: "{{ ansible_env.HOME }}/biopet"
+    reference_dir: "~/references/bios"
 
   tasks:
   - name: add {{extra_path}} to path
@@ -56,15 +65,15 @@
   - name: Create Reference dir
     file: path={{ reference_dir }} state=directory
 
-  - name: Download reference set
-    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference-empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz" timeout=300
-
-  - name: extract reference set
-    command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
+#  - name: Download reference set
+#    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference-empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz" timeout=300
+#
+#  - name: extract reference set
+#    command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
 
   # Hack to get jar file.
   - name: IGVtools path
-    shell: readlink -f `which ~/miniconda3/envs/bios/bin/igvtools`
+    shell: readlink -f `which ~/miniconda/envs/igvtools/bin/igvtools`
     register: igvtools_path
 
   - name: Create config from template
