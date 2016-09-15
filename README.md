@@ -3,7 +3,7 @@ Instructions on auto-deploying BBMRI BIOS pipeline using ansible, conda and biop
 
 Prerequisite
 =====
-* On the managing computer, Ansible 2.1 or higher is required to run the playbook. 
+* On the managing computer, Ansible 2.0 or higher is required to run the playbook. 
 * On the managed computer/VM, Ubuntu (tested on 14.04) with SSH and a user account (sudo is not necessary) is required.
 
 Test with Vagrant
