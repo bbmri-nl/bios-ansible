@@ -18,7 +18,7 @@
   - role: ansible-miniconda
     miniconda_environments:
       - name: bios
-        pkgs: '-c bioconda -c r R java-jdk=8.0.92'
+        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2'
       - name: igvtools
         pkgs: '-c bioconda java-jdk=8.0.92 igvtools'
       - name: samtools
@@ -34,17 +34,18 @@
       - name: fastqc
         pkgs: '-c bioconda fastqc=0.11.2'
       - name: htseq
-        pkgs: '-c bioconda python=2.7 htseq=0.6.1p1'
+        pkgs: '-c bioconda pysam htseq=0.6.1p1'
 
   vars:
-    extra_path: "{{ ansible_env.HOME }}/miniconda/envs/bios/bin"
+    extra_path: "{{ ansible_env.HOME }}/miniconda/"
     biopet_dir: "{{ ansible_env.HOME }}/biopet"
     reference_dir: "~/references/bios"
 
   tasks:
   - name: add {{extra_path}} to path
-    lineinfile: dest=~/.profile state=present line="export PATH={{extra_path}}:$PATH"
-    #TODO: we should export lib path, LD.
+    lineinfile: dest=~/.profile state=present line="export PATH={{extra_path}}envs/bios/bin:$PATH"
+  - name: add {{extra_path}} to path
+    lineinfile: dest=~/.profile state=present line="export LD_LIBRARY_PATH={{extra_path}}envs/bios/lib"
 
   - name: Create user bin dir
     file: path=~/bin state=directory
@@ -54,7 +55,7 @@
 
   - name: Download biopet jar
     get_url:
-      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-023e3460.jar"
+      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-299cf420.jar"
       dest="{{ biopet_dir }}/biopet-bios.jar"
     register: biopet_jar
 
