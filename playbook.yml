@@ -1,24 +1,12 @@
 ---
 - hosts: all
   roles:
-  #gcc, libc need to be installed with sudo, so now installed manually.
-#  - role: ansible-miniconda-role
-#    miniconda_version: "3.16.0"
-#    miniconda_env:
-#      name: bios
-#      channels:
-#      - r
-#      - bioconda
-#      dependencies:
-#        - python=2
-#        - numpy=1.9
-#        - scipy=0.14.0
-#        - matplotlib=1.4.0
-#        - libpng=1.6.22-0
+  # gcc, libc need to be installed with sudo, so now installed manually.
+  # libxrender should be installed with sudo, so now installed manually.
   - role: ansible-miniconda
     miniconda_environments:
       - name: bios
-        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2'
+        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2 r-png argparse r-gplots r-rcolorbrewer'
       - name: igvtools
         pkgs: '-c bioconda java-jdk=8.0.92 igvtools'
       - name: samtools
@@ -39,7 +27,7 @@
   vars:
     extra_path: "{{ ansible_env.HOME }}/miniconda/"
     biopet_dir: "{{ ansible_env.HOME }}/biopet"
-    reference_dir: "~/references/bios"
+    reference_dir: "/data/references/bios"
 
   tasks:
   - name: add {{extra_path}} to path
