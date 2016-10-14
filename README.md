@@ -31,7 +31,7 @@ In the [invertory.yml] file the nodes where to install this playbook on are list
 
 To execute the playbook run the following command on the managing computer:
 ```
-ansible-playbook -i invertory.yml playbook.yml
+ansible-playbook -i inventory.yml playbook.yml
 ```
 
 Run pipeline with tested dataset
