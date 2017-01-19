@@ -43,7 +43,7 @@
 
   - name: Download biopet jar
     get_url:
-      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-86e77e81.jar"
+      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-023e3460.jar"
       dest="{{ biopet_dir }}/biopet-bios.jar"
     register: biopet_jar
 
