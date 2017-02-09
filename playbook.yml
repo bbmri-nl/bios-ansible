@@ -27,7 +27,7 @@
   vars:
     extra_path: "{{ ansible_env.HOME }}/miniconda/"
     biopet_dir: "{{ ansible_env.HOME }}/biopet"
-    reference_dir: "/data/references/bios"
+    reference_dir: "{{ ansible_env.HOME }}/data/references/bios"
 
   tasks:
   - name: add {{extra_path}} to path
