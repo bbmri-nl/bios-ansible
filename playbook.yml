@@ -1,8 +1,6 @@
 ---
 - hosts: all
   roles:
-  # gcc, libc need to be installed with sudo, so now installed manually.
-  # libxrender should be installed with sudo, so now installed manually.
   - role: ansible-miniconda
     miniconda_environments:
       - name: bios
@@ -30,6 +28,18 @@
     reference_dir: "{{ ansible_env.HOME }}/data/references/bios"
 
   tasks:
+  - name: install the latest version of graphviz (for dot)
+    package:
+      name: graphviz
+      state: latest
+    become: true
+
+  - name: install the latest version of libxrender
+    package:
+      name: libxrender-dev
+      state: latest
+    become: true
+
   - name: add {{extra_path}} to path
     lineinfile: dest=~/.profile state=present line="export PATH={{extra_path}}envs/bios/bin:$PATH"
   - name: add {{extra_path}} to path
