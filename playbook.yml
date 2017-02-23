@@ -1,12 +1,10 @@
 ---
 - hosts: all
   roles:
-  # gcc, libc need to be installed with sudo, so now installed manually.
-  # libxrender should be installed with sudo, so now installed manually.
   - role: ansible-miniconda
     miniconda_environments:
       - name: bios
-        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2 r-png argparse r-gplots r-rcolorbrewer'
+        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2 r-png r-argparse r-gplots r-rcolorbrewer'
       - name: igvtools
         pkgs: '-c bioconda java-jdk=8.0.92 igvtools'
       - name: samtools
@@ -27,9 +25,35 @@
   vars:
     extra_path: "{{ ansible_env.HOME }}/miniconda/"
     biopet_dir: "{{ ansible_env.HOME }}/biopet"
-    reference_dir: "/data/references/bios"
+    data_dir: "/data"
+    reference_dir: "{{ data_dir }}/references/bios"
+    download_tmp_dir: "{{ data_dir }}/tmp"
 
   tasks:
+  # Create reference dir
+  - file:
+      path: "{{ reference_dir }}"
+      state: directory
+      mode: 0755
+
+  # Create tmp dir
+  - file:
+      path: "{{ download_tmp_dir }}"
+      state: directory
+      mode: 0755
+
+  - name: install the latest version of graphviz (for dot)
+    package:
+      name: graphviz
+      state: latest
+    become: true
+
+  - name: install the latest version of libxrender
+    package:
+      name: libxrender-dev
+      state: latest
+    become: true
+
   - name: add {{extra_path}} to path
     lineinfile: dest=~/.profile state=present line="export PATH={{extra_path}}envs/bios/bin:$PATH"
   - name: add {{extra_path}} to path
@@ -43,7 +67,7 @@
 
   - name: Download biopet jar
     get_url:
-      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-c4bab449.jar"
+      url="https://github.com/biopet/biopet/releases/download/BIOS/Biopet-BIOS-85999c2d.jar"
       dest="{{ biopet_dir }}/biopet-bios.jar"
     register: biopet_jar
 
@@ -53,11 +77,11 @@
   - name: Create Reference dir
     file: path={{ reference_dir }} state=directory
 
-#  - name: Download reference set
-#    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference-empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz" timeout=300
-#
-#  - name: extract reference set
-#    command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
+  - name: Download reference set
+    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference.tar.gz" dest="{{ reference_dir }}/bios-reference.tar.gz" tmp_dest="{{ download_tmp_dir }}/" timeout=300
+
+  - name: extract reference set
+    command: tar x -C {{ reference_dir }} -f {{ reference_dir }}/bios-reference.tar.gz
 
   # Hack to get jar file.
   - name: IGVtools path

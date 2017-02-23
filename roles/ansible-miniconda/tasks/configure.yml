@@ -20,4 +20,4 @@
   sudo: no
   shell: "{{ miniconda_home }}/bin/conda create --yes -q -n {{ item.name }} {{ item.pkgs }} creates={{ miniconda_home }}/envs/{{ item.name }}"
   when: miniconda_installed | success
-  with_items: miniconda_environments
+  with_items: "{{ miniconda_environments }}"
