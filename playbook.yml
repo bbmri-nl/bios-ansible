@@ -25,7 +25,8 @@
   vars:
     extra_path: "{{ ansible_env.HOME }}/miniconda/"
     biopet_dir: "{{ ansible_env.HOME }}/biopet"
-    reference_dir: "{{ ansible_env.HOME }}/data/references/bios"
+    data_dir: "/data"
+    reference_dir: "{{ data_dir }}/references/bios"
 
   tasks:
   - name: install the latest version of graphviz (for dot)
@@ -64,10 +65,10 @@
     file: path={{ reference_dir }} state=directory
 
   - name: Download reference set
-    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference-empty.tar.gz" dest="{{ biopet_dir }}/bios-reference.tar.gz" timeout=300
+    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference.tar.gz" dest="{{ reference_dir }}/bios-reference.tar.gz" tmp_dest="{{ data_dir }}/tmp" timeout=300
 
   - name: extract reference set
-    command: tar x -C {{ reference_dir }} -f {{ biopet_dir }}/bios-reference.tar.gz
+    command: tar x -C {{ reference_dir }} -f {{ reference_dir }}/bios-reference.tar.gz
 
   # Hack to get jar file.
   - name: IGVtools path
