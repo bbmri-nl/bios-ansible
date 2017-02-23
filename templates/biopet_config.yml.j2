@@ -54,3 +54,7 @@ bedtoolscoverage:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/bin:$PATH"
   - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/lib:$LD_LIBRARY_PATH"
+bedtoolscoverage-hist2count:
+  pre_commands:
+  - "export PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/bin:$PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/lib:$LD_LIBRARY_PATH"
