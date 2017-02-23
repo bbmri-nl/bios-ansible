@@ -4,7 +4,7 @@
   - role: ansible-miniconda
     miniconda_environments:
       - name: bios
-        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2 r-png argparse r-gplots r-rcolorbrewer'
+        pkgs: '-c bioconda -c r R java-jdk=8.0.92 r-ggplot2 r-png r-argparse r-gplots r-rcolorbrewer'
       - name: igvtools
         pkgs: '-c bioconda java-jdk=8.0.92 igvtools'
       - name: samtools
