@@ -27,8 +27,21 @@
     biopet_dir: "{{ ansible_env.HOME }}/biopet"
     data_dir: "/data"
     reference_dir: "{{ data_dir }}/references/bios"
+    download_tmp_dir: "{{ data_dir }}/tmp"
 
   tasks:
+  # Create reference dir
+  - file:
+      path: "{{ reference_dir }}"
+      state: directory
+      mode: 0755
+
+  # Create tmp dir
+  - file:
+      path: "{{ download_tmp_dir }}"
+      state: directory
+      mode: 0755
+
   - name: install the latest version of graphviz (for dot)
     package:
       name: graphviz
@@ -65,7 +78,7 @@
     file: path={{ reference_dir }} state=directory
 
   - name: Download reference set
-    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference.tar.gz" dest="{{ reference_dir }}/bios-reference.tar.gz" tmp_dest="{{ data_dir }}/tmp" timeout=300
+    get_url: url="https://barmsijs.lumc.nl/bios/bios-reference.tar.gz" dest="{{ reference_dir }}/bios-reference.tar.gz" tmp_dest="{{ download_tmp_dir }}/" timeout=300
 
   - name: extract reference set
     command: tar x -C {{ reference_dir }} -f {{ reference_dir }}/bios-reference.tar.gz
