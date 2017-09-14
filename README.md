@@ -1,8 +1,14 @@
 Instructions on auto-deploying BBMRI BIOS pipeline using ansible, conda and biopet framework.
 ==============
 
+BBMRI BIOS pipeline
+=====
+The RNAseq pipeline that can be deployed using this Ansible script is the exact replication of the RNAseq pipeline used by this Nature Genetics paper (www.nature.com/ng/journal/v49/n1/full/ng.3737.html). For more background information, please read its method section.
+
 Prerequisite
 =====
+* Please read the general introduction of Ansible first: http://docs.ansible.com/ansible/latest/intro_getting_started.html#
+* A basic understanding of (Bio-)Conda is good to have, but not really required if you just want to deploy this BBMRI BIOS pipeline.
 * On the managing computer, Ansible 2.0 or higher is required to run the playbook. 
 * On the managed computer/VM, Ubuntu (tested on 14.04) with SSH and a user account (sudo is not necessary) is required.
  - Gcc and libxrender should be installed already.
@@ -28,7 +34,7 @@ vagrant provision
 Deploy pipeline and all its dependency on a remote server/VM
 =====
 
-In the [invertory.yml] file the nodes where to install this playbook on are listed. Here you can also selected an account name to use on the remote machine.
+In the [invertory.yml] file the nodes where to install this pipeline are listed. Here you can also define a user account to use on the remote machine.
 
 To execute the playbook run the following command on the managing computer:
 ```
