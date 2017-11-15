@@ -26,7 +26,7 @@ If the machine is not up yet run the follow command withing this directory:
 vagrant up
 ```
 
-If this is the first time provision with ansible will start automaticly. To manual start provision when the VM is already up please use:
+If this is the first time provision, ansible will start automatically. To manually start provision when the VM is already up please use:
 ```
 vagrant provision
 ```
