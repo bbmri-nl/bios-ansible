@@ -34,7 +34,7 @@ vagrant provision
 Deploy pipeline and all its dependency on a remote server/VM
 =====
 
-In the [invertory.yml] file the nodes where to install this pipeline are listed. Here you can also define a user account to use on the remote machine.
+In the [invertory.yml] file the nodes where to install this pipeline are listed. Here you can also define a user account to use on the remote machine. In the [playbook.yml] file, you should specify "data_dir" in "vars".
 
 To execute the playbook run the following command on the managing computer:
 ```
