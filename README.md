@@ -19,7 +19,7 @@ Test with Vagrant
 To run this playbook within vagrant the following requirements are needed:
 - Anisble installed
 - VirtualBox installed
-- Vagrant installed
+- Vagrant installed (version 1.5.x and above)
 
 If the machine is not up yet run the follow command withing this directory:
 ```
