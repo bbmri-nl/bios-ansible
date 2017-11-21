@@ -16,45 +16,45 @@ igvtools:
 star:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/star/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/star/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/star/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 fastqc:
   exe: "{{ fastqc_path.stdout }}"
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/fastqc/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 htseqcount:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/htseq/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/htseq/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/htseq/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 seqtkseq:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 cutadapt:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 sickle:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/qccommand/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 samtoolsview:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 samtoolsflagstat:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/samtools/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 wigtobigwig:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/wigtobigwig/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/wigtobigwig/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/wigtobigwig/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 bedtoolscoverage:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 bedtoolscoverage-hist2count:
   pre_commands:
   - "export PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/bin:$PATH"
-  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/lib:$LD_LIBRARY_PATH"
+  - "export LD_LIBRARY_PATH={{ ansible_env.HOME }}/miniconda/envs/bedtools/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
